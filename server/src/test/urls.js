@@ -6,6 +6,7 @@ const debug = require('debug')('poll:test:db')
 const debugE = require('debug')('poll:error:db')
 const process = require('process')
 const utils = require('../utils')
+const {v4: uuidv4} = require('uuid')
 
 chai.use(require('chai-http'))
 
@@ -16,47 +17,47 @@ before('init db', async function () {
 })
 
 describe('db', async function () {
-  it('answers', async function () {
-    let answer = {
+  it('urls', async function () {
+    let url = {
       user_id: 123,
-      poll_run_id: 123,
-      answer: 'yes'
+      poll_run_id: 123
     }
 
     // create
 
-    answer = await db.answers.create(answer)
+    url = await db.urls.create(url)
+    let id = url.id
 
-    let id = answer.id
+    expect(url.uuid).to.be.not.null
+    expect(url.uuid.length).to.be.gt(5)
 
     // read
-    r = await db.answers.get({id})
+    r = await db.urls.get({id})
     debug('\nr=', JSON.stringify(r))
     expect(r.id).to.equal(id)
-    expect(r.user_id).to.equal(answer.user_id)
-    expect(r.poll_run_id).to.equal(answer.poll_run_id)
-    expect(r.answer).to.equal(answer.answer)
+    expect(r.user_id).to.equal(url.user_id)
+    expect(r.poll_run_id).to.equal(url.poll_run_id)
 
     // update by id
-    answer.answer = 'no'
-    r = await db.answers.update({id, answer: answer.answer})
+    url.uuid = uuidv4()
+    r = await db.urls.update({id, uuid: url.uuid})
     expect(r.affectedRows).to.equal(1)
     expect(r.warningStatus).to.equal(0)
 
     // confirm it was updated
-    r = await db.answers.get({id})
+    r = await db.urls.get({id})
     expect(r.id).to.equal(id)
-    expect(r.user_id).to.equal(answer.user_id)
-    expect(r.poll_run_id).to.equal(answer.poll_run_id)
-    expect(r.answer).to.equal(answer.answer)
+    expect(r.user_id).to.equal(url.user_id)
+    expect(r.poll_run_id).to.equal(url.poll_run_id)
+    expect(r.uuid).to.equal(url.uuid)
 
     // delete
-    r = await db.answers.del({id: answer.id})
+    r = await db.urls.del({id: url.id})
     expect(r.affectedRows).to.equal(1)
     expect(r.warningStatus).to.equal(0)
 
     // confirm it was deleted
-    r = await db.answers.get({id: answer.id})
+    r = await db.urls.get({id: url.id})
     expect(r).to.be.undefined
   })
 })

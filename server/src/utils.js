@@ -18,6 +18,16 @@ exports.generateRandomString = function (length = 32) {
     .join('')
 }
 
+exports.generateRandomNumber = function (length = 32) {
+  const chars = '1234567890'
+
+  let string = Array(length)
+    .fill(0)
+    .map(() => chars[Math.floor(Math.random() * chars.length)])
+    .join('')
+  return parseInt(string)
+}
+
 exports.stringify = function (value) {
   // stringify for error objects
   function adapter(key, value) {
