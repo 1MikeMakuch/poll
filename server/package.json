@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "debug": "DEBUG_COLORS=${DEBUG_COLORS:-no} DEBUG=${DEBUG:-'dt:*'} nodemon -i node_modules -w . -w .env src/server.js",
-    "test": "DEBUG='dt*' ./node_modules/mocha/bin/mocha --exit --bail src/test"
+    "debug": "DEBUG_COLORS=${DEBUG_COLORS:-no} DEBUG=${DEBUG:-'poll:*'} nodemon -i node_modules -w . -w .env src/server.js",
+    "test": "DEBUG='poll*' ./node_modules/mocha/bin/mocha --exit --bail src/test"
   },
   "author": "",
   "license": "ISC",

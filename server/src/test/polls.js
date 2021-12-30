@@ -41,8 +41,8 @@ describe('db', async function () {
     })
 
     // update by id
-    poll.poll = 'no'
-    r = await db.polls.update({id, poll: poll.poll})
+    poll.name = utils.generateRandomString(10)
+    r = await db.polls.update({id, name: poll.name})
     expect(r.affectedRows).to.equal(1)
     expect(r.warningStatus).to.equal(0)
 

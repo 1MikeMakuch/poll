@@ -39,7 +39,7 @@ async function create(user) {
   let keys = []
   let values = []
 
-  Object.keys(KEYS).forEach(key => {
+  KEYS.forEach(key => {
     if (_.has(user, key)) {
       keys.push(key)
       values.push(user[key])
@@ -49,7 +49,8 @@ async function create(user) {
   let sql = 'insert into users (' + keys.join(', ') + ') values (' + values.map(() => '?').join(', ') + ')'
 
   let r = await mysql(sql, values)
-  user = {id: r.insertId, ...user}
+  user = {...user, id: r.insertId}
+  debug('\n\nuser', JSON.stringify(user), '\n')
   return user
 }
 async function update(user) {
@@ -65,7 +66,7 @@ async function update(user) {
 
   let sql = ''
 
-  Object.keys(KEYS).forEach(key => {
+  KEYS.forEach(key => {
     if (user[key]) {
       if (sql.length) sql += ', '
       sql += key + '= ? '

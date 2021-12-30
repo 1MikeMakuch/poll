@@ -5,7 +5,7 @@ const debug = require('debug')('poll:server')
 const debugE = require('debug')('poll:error:server')
 const app = express()
 const db = require('./db')
-const apis = require('./apis')
+const api = require('./api')
 const utils = require('./utils')
 
 // Load env variables from .env
@@ -32,7 +32,7 @@ async function server() {
     next()
   })
 
-  apis.init(app)
+  api.init(app)
 
   app.use((err, req, res, next) => {
     debugE('Error in HTTP handler:', req.ip, req.protocol, req.method, req.path, err)
@@ -43,8 +43,6 @@ async function server() {
 
   debug('version:', 'listening on ', process.env.SERVER_PORT)
   app.listen(process.env.SERVER_PORT)
-
-  utils.mailInit()
 }
 
 server()
