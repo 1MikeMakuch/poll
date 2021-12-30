@@ -15,13 +15,13 @@ before('init db', async function () {
   await db.init()
 })
 
-const KEYS = ['id', 'poll_run_id', 'user_id', 'status']
+const KEYS = ['id', 'poll_run_id', 'poll_user_id', 'status']
 
 describe('db', async function () {
   it('poll_run_statuses', async function () {
     let poll_run_status = {
       poll_run_id: utils.generateRandomNumber(6),
-      user_id: utils.generateRandomNumber(6),
+      poll_user_id: utils.generateRandomNumber(6),
       status: 'sent'
     }
 
@@ -42,7 +42,11 @@ describe('db', async function () {
 
     // update by id
     poll_run_status.status = 'viewed'
-    r = await db.poll_run_statuses.update({id, status: poll_run_status.status})
+    r = await db.poll_run_statuses.update({
+      poll_run_id: poll_run_status.poll_run_id,
+      poll_user_id: poll_run_status.poll_user_id,
+      status: poll_run_status.status
+    })
     expect(r.affectedRows).to.equal(1)
     expect(r.warningStatus).to.equal(0)
 

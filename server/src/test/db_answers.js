@@ -18,7 +18,7 @@ before('init db', async function () {
 describe('db', async function () {
   it('answers', async function () {
     let answer = {
-      user_id: 123,
+      poll_user_id: 123,
       poll_run_id: 123,
       answer: 'yes'
     }
@@ -33,7 +33,7 @@ describe('db', async function () {
     r = await db.answers.get({id})
 
     expect(r.id).to.equal(id)
-    expect(r.user_id).to.equal(answer.user_id)
+    expect(r.poll_user_id).to.equal(answer.poll_user_id)
     expect(r.poll_run_id).to.equal(answer.poll_run_id)
     expect(r.answer).to.equal(answer.answer)
 
@@ -46,7 +46,7 @@ describe('db', async function () {
     // confirm it was updated
     r = await db.answers.get({id})
     expect(r.id).to.equal(id)
-    expect(r.user_id).to.equal(answer.user_id)
+    expect(r.poll_user_id).to.equal(answer.poll_user_id)
     expect(r.poll_run_id).to.equal(answer.poll_run_id)
     expect(r.answer).to.equal(answer.answer)
 

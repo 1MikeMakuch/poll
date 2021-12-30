@@ -23,14 +23,13 @@ after('cleanup', async function () {
 })
 describe('api', async function () {
   //
-  const KEYS = ['poll_id', 'poll_run_id', 'question_id', 'question']
+  const KEYS = ['poll_id', 'poll_id', 'question_id', 'question']
 
   it('api_questions', async function () {
     //
 
     let question = {
       poll_id: utils.generateRandomNumber(6),
-      poll_run_id: utils.generateRandomNumber(6),
       question_id: 1,
       question: 'why is the sky blue?'
     }

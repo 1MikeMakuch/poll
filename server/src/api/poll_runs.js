@@ -117,16 +117,7 @@ async function postPollRunAnswer(req, res) {
     status = 'completed'
   }
 
-  debug(
-    'postPollRunAnswer statuses:',
-    JSON.stringify({
-      poll_id: poll_run.poll_id,
-      poll_user_id: url.poll_user_id,
-      question_id,
-      lastQuestionId,
-      numberOfQuestions
-    })
-  )
+  debug('postPollRunAnswer statuses:', JSON.stringify({poll_id: poll_run.poll_id, poll_user_id: url.poll_user_id, question_id, lastQuestionId, numberOfQuestions})) // prettier-ignore
 
   result = await db.answers.create({
     poll_user_id: url.poll_user_id,

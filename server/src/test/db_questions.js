@@ -19,7 +19,7 @@ describe('db', async function () {
   it('questions', async function () {
     let question = {
       question_id: utils.generateRandomNumber(8),
-      poll_run_id: utils.generateRandomNumber(8),
+      poll_id: utils.generateRandomNumber(8),
       question: 'plugh'
     }
 
@@ -34,7 +34,7 @@ describe('db', async function () {
 
     expect(r.id).to.equal(id)
     expect(r.question_id).to.equal(question.question_id)
-    expect(r.poll_run_id).to.equal(question.poll_run_id)
+    expect(r.poll_id).to.equal(question.poll_id)
     expect(r.question).to.equal(question.question)
 
     // update by id
@@ -47,7 +47,7 @@ describe('db', async function () {
     r = await db.questions.get({id})
     expect(r.id).to.equal(id)
     expect(r.question_id).to.equal(question.question_id)
-    expect(r.poll_run_id).to.equal(question.poll_run_id)
+    expect(r.poll_id).to.equal(question.poll_id)
     expect(r.question).to.equal(question.question)
 
     // delete
