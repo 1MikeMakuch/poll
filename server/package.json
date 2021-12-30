@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "debug": "DEBUG_COLORS=${DEBUG_COLORS:-no} DEBUG=${DEBUG:-'poll:*'} nodemon -i node_modules -w . -w .env src/server.js",
-    "test": "DEBUG='poll*' ./node_modules/mocha/bin/mocha --exit --bail src/test"
+    "test-all": "DEBUG=\"xpoll* xverbose*\" TEST_URL=\"http://localhost:9091\" ./node_modules/mocha/bin/mocha --exit   --cleanup false  src/test/",
+    "test-run": "DEBUG=\"xpoll* xverbose*\" TEST_URL=\"http://localhost:9091\" ./node_modules/mocha/bin/mocha --exit   --cleanup false  src/test/run_a_poll.js"
   },
   "author": "",
   "license": "ISC",
