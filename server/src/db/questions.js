@@ -29,6 +29,24 @@ async function get(query) {
   return u
 }
 
+async function getNumberOfQuestions(query) {
+  if (!query || !query.poll_id) {
+    throw new Error('poll_user_id and poll_run_id required')
+  }
+  let sql = 'select * from questions where poll_id = ? order by question_id desc limit 1'
+  let values = [query.poll_id]
+  let r = await mysql(sql, values)
+  debug('getNumberOfQuestions0', JSON.stringify(r))
+
+  if (_.has(r, 0, 'question_id')) {
+    r = r[0].question_id
+  } else {
+    r = 0
+  }
+  debug('getNumberOfQuestions1', JSON.stringify(r))
+  return r
+}
+
 async function create(question) {
   debug('create', JSON.stringify(question))
   if (!question) {
@@ -96,4 +114,4 @@ async function init(config) {
   mysql = config.execute
 }
 
-module.exports = {init, create, get, update, del}
+module.exports = {init, create, get, update, del, getNumberOfQuestions}

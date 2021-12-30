@@ -2,11 +2,11 @@
 const crypto = require('crypto')
 const debug = require('debug')('poll:utils')
 const debugE = require('debug')('poll:error:utils')
-
-exports.sendMail = function (data, callback) {
-  debug('sendMail data:', JSON.stringify({from: data.from, to: data.to, subject: data.subject, body: data.text}))
-  if (callback) callback()
-  return
+exports.notify = function (data) {
+  debug('notify:', JSON.stringify(data))
+  // if (data.email) exports.sendMail(data)
+  // if (data.phone) exports.sendSMS(data)
+  return Promise.resolve(true)
 }
 
 exports.generateRandomString = function (length = 32) {

@@ -4,7 +4,7 @@ const process = require('process')
 const chai = require('chai')
 const db = require('../db')
 const debug = require('debug')('poll:test:api_users')
-const debugE = require('debug')('dt:error:api_users')
+const debugE = require('debug')('poll:error:api_users')
 const utils = require('../utils')
 
 chai.use(require('chai-http'))

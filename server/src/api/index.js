@@ -11,6 +11,7 @@ const keyvals = require('./keyvals')
 const poll_users = require('./poll_users')
 const polls = require('./polls')
 const questions = require('./questions')
+const poll_runs = require('./poll_runs')
 
 function init(app) {
   debug('init')
@@ -27,6 +28,7 @@ function init(app) {
   poll_users.init(app)
   polls.init(app)
   questions.init(app)
+  poll_runs.init(app)
 }
 
 module.exports = {init}

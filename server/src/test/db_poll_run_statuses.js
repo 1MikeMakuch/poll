@@ -2,8 +2,8 @@
 
 const chai = require('chai')
 const db = require('../db')
-const debug = require('debug')('poll_run_status:test:db')
-const debugE = require('debug')('poll_run_status:error:db')
+const debug = require('debug')('poll:test:db:poll_run_statuses')
+const debugE = require('debug')('poll:error:db:poll_run_statuses')
 const process = require('process')
 const utils = require('../utils')
 

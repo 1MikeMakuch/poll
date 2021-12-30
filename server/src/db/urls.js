@@ -7,16 +7,20 @@ const {v4: uuidv4} = require('uuid')
 
 var mysql
 
-const KEYS = ['poll_run_id', 'user_id', 'uuid']
+const KEYS = ['poll_run_id', 'poll_user_id', 'uuid']
 
 async function get(query) {
-  if (!query.id) {
-    throw new Error('id required')
+  if (!query.id && !query.uuid) {
+    throw new Error('id or uuid required')
   }
   let prop, val
   if (query.id) {
     prop = 'id'
     val = query.id
+  }
+  if (query.uuid) {
+    prop = 'uuid'
+    val = query.uuid
   }
 
   let sql = `select * from urls where ${prop} = ?`
@@ -34,6 +38,9 @@ async function create(url) {
   if (!url) {
     throw new Error('url attributes required')
   }
+  if (!_.has(url, 'uuid')) {
+    url.uuid = uuidv4()
+  }
   let keys = []
   let values = []
 
@@ -43,9 +50,6 @@ async function create(url) {
       values.push(url[key])
     }
   })
-  if (!_.has(url, 'uuid')) {
-    url.uuid = uuidv4()
-  }
 
   let sql = 'insert into urls (' + keys.join(', ') + ') values (' + values.map(() => '?').join(', ') + ')'
 

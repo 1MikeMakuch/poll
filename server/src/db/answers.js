@@ -6,7 +6,7 @@ const _ = require('lodash')
 
 var mysql
 
-const KEYS = ['user_id', 'poll_run_id', 'answer']
+const KEYS = ['poll_user_id', 'poll_run_id', 'answer', 'question_id']
 
 async function get(query) {
   if (!query.id) {
@@ -26,6 +26,22 @@ async function get(query) {
     return undefined
   }
   return u
+}
+async function getLastQuestionIdAnswered(query) {
+  if (!query.poll_user_id || !query.poll_run_id) {
+    throw new Error('poll_user_id and poll_run_id required')
+  }
+  let sql = 'select * from answers where poll_user_id = ? and poll_run_id = ? order by question_id desc limit 1'
+  let values = [query.poll_user_id, query.poll_run_id]
+  let r = await mysql(sql, values)
+
+  if (_.has(r, 0, 'question_id')) {
+    r = r[0].question_id
+  } else {
+    r = 0
+  }
+  debug('getLastQuestionIdAnswered', JSON.stringify(r))
+  return r
 }
 
 async function create(answer) {
@@ -95,4 +111,4 @@ async function init(config) {
   mysql = config.execute
 }
 
-module.exports = {init, create, get, update, del}
+module.exports = {init, create, get, update, del, getLastQuestionIdAnswered}

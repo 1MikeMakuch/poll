@@ -1,7 +1,7 @@
 'use strict'
 
-const debug = require('debug')('dt:db:keyvals')
-const debugE = require('debug')('dt:error::db:keyvals')
+const debug = require('debug')('poll:db:keyvals')
+const debugE = require('debug')('poll:error::db:keyvals')
 const _ = require('lodash')
 
 var mysql

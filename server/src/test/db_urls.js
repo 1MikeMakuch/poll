@@ -19,7 +19,7 @@ before('init db', async function () {
 describe('db', async function () {
   it('urls', async function () {
     let url = {
-      user_id: 123,
+      poll_user_id: 123,
       poll_run_id: 123
     }
 
@@ -35,7 +35,7 @@ describe('db', async function () {
     r = await db.urls.get({id})
 
     expect(r.id).to.equal(id)
-    expect(r.user_id).to.equal(url.user_id)
+    expect(r.poll_user_id).to.equal(url.poll_user_id)
     expect(r.poll_run_id).to.equal(url.poll_run_id)
 
     // update by id
@@ -47,7 +47,7 @@ describe('db', async function () {
     // confirm it was updated
     r = await db.urls.get({id})
     expect(r.id).to.equal(id)
-    expect(r.user_id).to.equal(url.user_id)
+    expect(r.poll_user_id).to.equal(url.poll_user_id)
     expect(r.poll_run_id).to.equal(url.poll_run_id)
     expect(r.uuid).to.equal(url.uuid)
 

@@ -49,11 +49,11 @@ drop table if exists poll_run_statuses;
 create table poll_run_statuses (
     id int(11) not null auto_increment,
     poll_run_id int default null,
-    user_id int default null,
+    poll_user_id int default null,
     status enum('sent', 'viewed', 'in_progress', 'completed') default null,
     primary key(id),
     key(poll_run_id),
-    key(user_id),
+    key(poll_user_id),
     dt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
@@ -77,12 +77,11 @@ drop table if exists questions;
 create table questions (
     id int(11) not null auto_increment,
     poll_id int default null,
-    poll_run_id int default null,
     question_id int default null,
     question varchar(100) default null,
     primary key(id),
-    unique(poll_run_id, question_id),
-    key(poll_run_id),
+    unique(poll_id, question_id),
+    key(poll_id),
     dt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
@@ -90,20 +89,21 @@ drop table if exists urls;
 create table urls (
     id int(11) not null auto_increment,
     poll_run_id int default null,
-    user_id int default null,
+    poll_user_id int default null,
     uuid varchar(100) default null,
     primary key(id),
-    key(user_id),
+    key(poll_user_id),
     key(poll_run_id),
-    key(uuid),
+    unique(uuid),
     dt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 drop table if exists answers;
 create table answers (
     id int(11) not null auto_increment,
-    user_id int default null,
+    poll_user_id int default null,
     poll_run_id int default null,
+    question_id int default null,
     answer enum('yes', 'no') default null,
     primary key(id),
     key(poll_run_id),

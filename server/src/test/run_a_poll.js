@@ -23,10 +23,11 @@ after('cleanup', async function () {
     // await db.poll_users.del({email: poll_user1.email})
   } catch (e) {}
 })
-describe('api_poll_users', async function () {
+describe('run', async function () {
   //const KEYS = ['poll_id', 'email', 'first_name', 'last_name', 'phone']
 
   it('run_a_poll', async function () {
+    this.timeout(5000)
     //
     // create an admin user
     //
@@ -115,6 +116,60 @@ describe('api_poll_users', async function () {
       expect(r.status).to.equal(201)
       questions[i].id = r.body.id
     }
-    debug('questions', JSON.stringify(questions, null, 2))
+
+    // run the poll
+    let poll_run = {
+      poll_id,
+      poll_user_ids: [poll_user0.id, poll_user1.id]
+    }
+    r = await request.post('/api/poll_runs').send(poll_run)
+    expect(r.status).to.equal(201)
+
+    // the poll has been "run" once, that is the users have been notified
+    // now each user answers
+
+    // cheating here, the post above is returning the poll_users
+    // UUID so we can simulate the poll taking directly right here, instead of getting an email
+
+    const poll_users = r.body
+
+    const answers = ['yes', 'no']
+    let url,
+      i = 1
+
+    // 1st user answers all 3 yes, in correct order
+
+    url = '/api/poll_run_answer/' + poll_users[0].uuid.uuid + '/1/yes'
+    r = await request.post(url)
+    expect(r.status).to.equal(201)
+
+    await new Promise(resolve => setTimeout(resolve, 1005))
+
+    url = '/api/poll_run_answer/' + poll_users[0].uuid.uuid + '/2/yes'
+    r = await request.post(url)
+    expect(r.status).to.equal(201)
+
+    await new Promise(resolve => setTimeout(resolve, 1005))
+
+    url = '/api/poll_run_answer/' + poll_users[0].uuid.uuid + '/3/yes'
+    r = await request.post(url)
+
+    // 2nd user answers out of order
+
+    url = '/api/poll_run_answer/' + poll_users[1].uuid.uuid + '/3/yes'
+    r = await request.post(url)
+    expect(r.status).to.equal(400)
+
+    url = '/api/poll_run_answer/' + poll_users[1].uuid.uuid + '/2/yes'
+    r = await request.post(url)
+    expect(r.status).to.equal(400)
+
+    // this one is accepted
+
+    url = '/api/poll_run_answer/' + poll_users[1].uuid.uuid + '/1/yes'
+    r = await request.post(url)
+    expect(r.status).to.equal(201)
+
+    //
   })
 })

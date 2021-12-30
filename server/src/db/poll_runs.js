@@ -1,7 +1,7 @@
 'use strict'
 
-const debug = require('debug')('poll_run:db:poll_runs')
-const debugE = require('debug')('poll_run:error::db:poll_runs')
+const debug = require('debug')('poll:db:poll_runs')
+const debugE = require('debug')('poll:error::db:poll_runs')
 const _ = require('lodash')
 
 var mysql
@@ -46,7 +46,8 @@ async function create(poll_run) {
   let sql = 'insert into poll_runs (' + keys.join(', ') + ') values (' + values.map(() => '?').join(', ') + ')'
 
   let r = await mysql(sql, values)
-  poll_run = {id: r.insertId, ...poll_run}
+  poll_run = {...poll_run, id: r.insertId}
+  debug('create', JSON.stringify(poll_run))
   return poll_run
 }
 async function update(poll_run) {

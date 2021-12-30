@@ -1,12 +1,12 @@
 'use strict'
 
-const debug = require('debug')('poll_run_status:db:poll_run_statuses')
-const debugE = require('debug')('poll_run_status:error::db:poll_run_statuses')
+const debug = require('debug')('poll:db:poll_run_statuses')
+const debugE = require('debug')('poll:error::db:poll_run_statuses')
 const _ = require('lodash')
 
 var mysql
 
-const KEYS = ['poll_run_id', 'user_id', 'status']
+const KEYS = ['poll_run_id', 'poll_user_id', 'status']
 
 async function get(query) {
   if (!query.id) {
@@ -51,7 +51,7 @@ async function create(poll_run_status) {
 }
 async function update(poll_run_status) {
   debug('update', JSON.stringify(poll_run_status))
-  if (!poll_run_status && !poll_run_status.id) {
+  if (!poll_run_status && (!poll_run_status.id || !poll_run_status.poll_run_id)) {
     throw new Error('id required')
   }
 
@@ -61,16 +61,23 @@ async function update(poll_run_status) {
   let sql = ''
 
   KEYS.forEach(key => {
-    if (poll_run_status[key]) {
+    debug('key0', key)
+    if (_.has(poll_run_status, key)) {
+      debug('key1', key)
       if (sql.length) sql += ', '
       sql += key + '= ? '
       values.push(poll_run_status[key])
     }
   })
+  debug('values0', JSON.stringify(values))
 
-  sql = 'update poll_run_statuses set ' + sql + ' where id = ?'
+  sql = 'update poll_run_statuses set ' + sql + ' where poll_user_id = ? and poll_run_id = ?'
 
-  values.push(poll_run_status.id)
+  values.push(poll_run_status.poll_user_id)
+  values.push(poll_run_status.poll_run_id)
+
+  debug('values1', JSON.stringify(values))
+
   return await mysql(sql, values)
 }
 
