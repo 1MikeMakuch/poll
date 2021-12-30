@@ -25,6 +25,26 @@ $ cd server
 $ yarn install
 ```
 
+Also you need a .env in the server dir with these vars;
+```
+SERVER_PORT=9091
+SERVER_URL="http://localhost:9091"
+
+APP_KEY=asdf234
+
+SESSION_SECRET=xyzzy123
+
+ENVIRONMENT=development
+
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=poll
+DB_USER=poll
+DB_PASSWORD=poll
+```
+
+and you need to init your db with `server/schema/install.sql`, it creates everything and loads the schema.
+
 api tests run against the server on it's default port 9091
 
 ```
