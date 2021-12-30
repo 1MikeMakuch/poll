@@ -31,7 +31,7 @@ describe('db', async function () {
 
     // read
     r = await db.questions.get({id})
-    debug('\nr=', JSON.stringify(r))
+
     expect(r.id).to.equal(id)
     expect(r.question_id).to.equal(question.question_id)
     expect(r.poll_run_id).to.equal(question.poll_run_id)

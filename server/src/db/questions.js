@@ -6,7 +6,7 @@ const _ = require('lodash')
 
 var mysql
 
-const KEYS = ['poll_run_id', 'question_id', 'question']
+const KEYS = ['poll_id', 'poll_run_id', 'question_id', 'question']
 
 async function get(query) {
   if (!query.id) {
@@ -20,6 +20,7 @@ async function get(query) {
 
   let sql = `select * from questions where ${prop} = ?`
   let u = await mysql(sql, [val])
+  debug('get', JSON.stringify(u))
   if (u && u.length) {
     u = u[0]
   } else if (u.length === 0) {

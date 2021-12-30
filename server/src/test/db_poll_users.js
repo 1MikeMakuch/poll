@@ -20,6 +20,7 @@ const KEYS = ['id', 'poll_id', 'email', 'first_name', 'last_name', 'phone']
 describe('db', async function () {
   it('poll_users', async function () {
     let poll_user = {
+      tenant_id: utils.generateRandomNumber(6),
       poll_id: utils.generateRandomNumber(6),
       email: 'miketesting+' + utils.generateRandomString(5) + '@bryllyant.com',
       first_name: 'Mike',

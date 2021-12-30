@@ -19,7 +19,7 @@ describe('db', async function () {
   it('users', async function () {
     let user = {
       name: 'Mike',
-      email: 'mike-testing+' + utils.generateRandomString(5) + '@bryllyant.com',
+      email: 'miketesting+' + utils.generateRandomString(5) + '@bryllyant.com',
       tenant_id: 123,
       password: 'xyzzy',
       is_admin: 0
@@ -33,7 +33,7 @@ describe('db', async function () {
 
     // read
     r = await db.users.get({id})
-    debug('\nr=', JSON.stringify(r))
+
     expect(r.id).to.equal(id)
     expect(r.email).to.equal(user.email)
     expect(r.name).to.equal(user.name)
@@ -70,6 +70,7 @@ describe('db', async function () {
     // create 1 more
     let user1 = Object.assign({}, user)
     user1.email = 'plugh@xyzzy.xyz'
+    delete user1.id
     user1 = await db.users.create(user1)
 
     // delete

@@ -33,7 +33,7 @@ describe('db', async function () {
 
     // read
     r = await db.urls.get({id})
-    debug('\nr=', JSON.stringify(r))
+
     expect(r.id).to.equal(id)
     expect(r.user_id).to.equal(url.user_id)
     expect(r.poll_run_id).to.equal(url.poll_run_id)

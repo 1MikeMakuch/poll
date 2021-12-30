@@ -56,7 +56,7 @@ async function postUsers(req, res) {
     debugE(e)
     return res.sendStatus(400)
   }
-  debug('\n\npostUsers', JSON.stringify(result), '\n')
+  debug('postUsers', JSON.stringify(result))
   res.status(201).send(result).end()
 }
 async function putUsers(req, res) {

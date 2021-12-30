@@ -60,6 +60,7 @@ create table poll_run_statuses (
 drop table if exists poll_users;
 create table poll_users (
     id int(11) not null auto_increment,
+    tenant_id int default null,
     poll_id int default null,
     email varchar(100) default null,
     first_name varchar(50) default null,
@@ -75,6 +76,7 @@ create table poll_users (
 drop table if exists questions;
 create table questions (
     id int(11) not null auto_increment,
+    poll_id int default null,
     poll_run_id int default null,
     question_id int default null,
     question varchar(100) default null,

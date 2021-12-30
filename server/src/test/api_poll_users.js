@@ -23,14 +23,15 @@ after('cleanup', async function () {
     await db.poll_users.del({email: poll_user1.email})
   } catch (e) {}
 })
-describe('api_poll_users', async function () {
+describe('api', async function () {
   const KEYS = ['poll_id', 'email', 'first_name', 'last_name', 'phone']
 
   it('poll_users', async function () {
     let poll_user2 = {
+      tenant_id: utils.generateRandomNumber(6),
       first_name: 'Joe',
       last_name: 'User',
-      email: 'mike+testing_' + utils.generateRandomString(6) + '@bryllyant.com',
+      email: 'mike+testing-' + utils.generateRandomString(6) + '@bryllyant.com',
       phone: '123-123-1232',
       poll_id: utils.generateRandomNumber(6)
     }
@@ -81,9 +82,9 @@ describe('api_poll_users', async function () {
 
     // create 2nd poll_user
     let poll_user3 = Object.assign({}, poll_user2)
-    poll_user3.email = 'joe1@example.com'
+    ;(poll_user3.email = 'mike+testing-' + utils.generateRandomString(6) + '@bryllyant.com'), delete poll_user3.id
     r = await request.post('/api/poll_users').send(poll_user3)
-    debug('\n\npoll_user3 r=', JSON.stringify(r.body), '\n')
+
     poll_user3.id = r.id
 
     expect(r.status).to.equal(201)

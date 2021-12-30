@@ -23,11 +23,11 @@ after('cleanup', async function () {
     await db.users.del({email: user1.email})
   } catch (e) {}
 })
-describe('api_users', async function () {
+describe('api', async function () {
   it('users', async function () {
     let user2 = {
-      name: 'Joe User',
-      email: 'joe@xyzzy.xyz'
+      name: 'Mike User',
+      email: 'miketesting+' + utils.generateRandomString(5) + '@bryllyant.com'
     }
 
     // create user
@@ -62,9 +62,10 @@ describe('api_users', async function () {
 
     // create 2nd user
     let user3 = Object.assign({}, user2)
-    user3.email = 'joe1@example.com'
+    user3.email = 'miketesting+' + utils.generateRandomString(5) + '@bryllyant.com'
+    delete user3.id
     r = await request.post('/api/users').send(user3)
-    debug('\n\nuser3 r=', JSON.stringify(r.body), '\n')
+
     user3.id = r.id
 
     expect(r.status).to.equal(201)

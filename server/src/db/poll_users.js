@@ -6,7 +6,7 @@ const _ = require('lodash')
 
 var mysql
 
-const KEYS = ['poll_id', 'email', 'first_name', 'last_name', 'phone']
+const KEYS = ['tenant_id', 'poll_id', 'email', 'first_name', 'last_name', 'phone']
 
 async function get(query) {
   if (!query.id) {
@@ -32,6 +32,9 @@ async function create(poll_user) {
   debug('create', JSON.stringify(poll_user))
   if (!poll_user) {
     throw new Error('poll_user attributes required')
+  }
+  if (!_.has(poll_user, 'tenant_id')) {
+    throw new Error('tenant_id required')
   }
   let keys = []
   let values = []

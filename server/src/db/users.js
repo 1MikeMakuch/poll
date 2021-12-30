@@ -50,7 +50,7 @@ async function create(user) {
 
   let r = await mysql(sql, values)
   user = {...user, id: r.insertId}
-  debug('\n\nuser', JSON.stringify(user), '\n')
+
   return user
 }
 async function update(user) {
