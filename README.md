@@ -20,6 +20,11 @@ $ node --version
 v16.13.0
 ```
 
+```
+$ cd server
+$ yarn install
+```
+
 api tests run against the server on it's default port 9091
 
 ```
