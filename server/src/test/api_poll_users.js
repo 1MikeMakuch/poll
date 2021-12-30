@@ -31,7 +31,7 @@ describe('api', async function () {
       tenant_id: utils.generateRandomNumber(6),
       first_name: 'Joe',
       last_name: 'User',
-      email: 'mike+testing-' + utils.generateRandomString(6) + '@bryllyant.com',
+      email: 'mike+testing-' + utils.generateRandomString(6) + '@1mikemakuch.com',
       phone: '123-123-1232',
       poll_id: utils.generateRandomNumber(6)
     }
@@ -82,7 +82,7 @@ describe('api', async function () {
 
     // create 2nd poll_user
     let poll_user3 = Object.assign({}, poll_user2)
-    ;(poll_user3.email = 'mike+testing-' + utils.generateRandomString(6) + '@bryllyant.com'), delete poll_user3.id
+    ;(poll_user3.email = 'mike+testing-' + utils.generateRandomString(6) + '@1mikemakuch.com'), delete poll_user3.id
     r = await request.post('/api/poll_users').send(poll_user3)
 
     poll_user3.id = r.id

@@ -37,7 +37,7 @@ describe('run', async function () {
 
     let admin = {
       tenant_id: utils.generateRandomNumber(6),
-      email: 'mike+test+admin-' + utils.generateRandomString(5) + '@bryllyant.com',
+      email: 'mike+test+admin-' + utils.generateRandomString(5) + '@1mikemakuch.com',
       name: 'Mike Tester',
       is_admin: 1
     }
@@ -69,7 +69,7 @@ describe('run', async function () {
       poll_id,
       first_name: 'Joe0',
       last_name: 'User0',
-      email: 'joe0+testing-' + utils.generateRandomString(6) + '@bryllyant.com',
+      email: 'joe0+testing-' + utils.generateRandomString(6) + '@1mikemakuch.com',
       phone: '123-123-1232'
     }
 
@@ -84,7 +84,7 @@ describe('run', async function () {
     poll_user1 = JSON.parse(JSON.stringify(poll_user0))
     poll_user1.first_name = 'Joe1'
     poll_user1.last_name = 'User1'
-    poll_user1.email = 'joe1+testing-' + utils.generateRandomString(6) + '@bryllyant.com'
+    poll_user1.email = 'joe1+testing-' + utils.generateRandomString(6) + '@1mikemakuch.com'
     poll_user1.phone = '321-321-3211'
 
     r = await request.post('/api/poll_users').send(poll_user1)

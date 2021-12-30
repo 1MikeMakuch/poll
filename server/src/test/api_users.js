@@ -27,7 +27,7 @@ describe('api', async function () {
   it('users', async function () {
     let user2 = {
       name: 'Mike User',
-      email: 'miketesting+' + utils.generateRandomString(5) + '@bryllyant.com'
+      email: 'miketesting+' + utils.generateRandomString(5) + '@1mikemakuch.com'
     }
 
     // create user
@@ -62,7 +62,7 @@ describe('api', async function () {
 
     // create 2nd user
     let user3 = Object.assign({}, user2)
-    user3.email = 'miketesting+' + utils.generateRandomString(5) + '@bryllyant.com'
+    user3.email = 'miketesting+' + utils.generateRandomString(5) + '@1mikemakuch.com'
     delete user3.id
     r = await request.post('/api/users').send(user3)
 

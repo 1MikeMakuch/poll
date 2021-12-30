@@ -22,7 +22,7 @@ describe('db', async function () {
     let poll_user = {
       tenant_id: utils.generateRandomNumber(6),
       poll_id: utils.generateRandomNumber(6),
-      email: 'miketesting+' + utils.generateRandomString(5) + '@bryllyant.com',
+      email: 'miketesting+' + utils.generateRandomString(5) + '@1mikemakuch.com',
       first_name: 'Mike',
       last_name: 'User',
       phone: utils.generateRandomString(10)

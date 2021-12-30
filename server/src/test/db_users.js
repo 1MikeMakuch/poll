@@ -19,7 +19,7 @@ describe('db', async function () {
   it('users', async function () {
     let user = {
       name: 'Mike',
-      email: 'miketesting+' + utils.generateRandomString(5) + '@bryllyant.com',
+      email: 'miketesting+' + utils.generateRandomString(5) + '@1mikemakuch.com',
       tenant_id: 123,
       password: 'xyzzy',
       is_admin: 0
